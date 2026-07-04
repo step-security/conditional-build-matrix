@@ -2,7 +2,7 @@
 
 # Conditional Build Matrix
 
-[![CodeFactor](https://www.codefactor.io/repository/github/joshuathemiller/conditional-build-matrix/badge)](https://www.codefactor.io/repository/github/joshuathemiller/conditional-build-matrix) ![GitHub](https://img.shields.io/github/license/step-security/conditional-build-matrix)
+![GitHub](https://img.shields.io/github/license/step-security/conditional-build-matrix)
 
 Enables easier *conditional* matrix builds!
 
@@ -50,9 +50,9 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       # Required as the JSON input file needs to be read
-      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v7      
       - id: set-matrix
-        uses: step-security/conditional-build-matrix@main        
+        uses: step-security/conditional-build-matrix@v2        
         with:
           # inputFile: '.github/workflows/matrix_includes.json' # Default input file path
           filter: '[?runOnBranch==`${{ github.ref }}` || runOnBranch==`always`]'
@@ -84,10 +84,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: nelonoel/branch-name@v1.0.1
+      - uses: actions/checkout@v7
+      - uses: nelonoel/branch-name@v1
       - id: set-matrix
-        uses: step-security/conditional-build-matrix@main        
+        uses: step-security/conditional-build-matrix@v2        
         with:          
           # The simple branch name can be used in the filter now!
           filter: '[?runOnBranch==`${{ env.BRANCH_NAME }}` || runOnBranch==`always`]'   
@@ -145,6 +145,3 @@ If you have two workflows where the only difference is the matrix elements, you 
 *Build for v2.1-Release branch*
 ![](https://i.stack.imgur.com/bXFfX.png)
 
-## Inspired By
-
-This action was inspired by a [SO question](https://stackoverflow.com/q/65384420/1542187) on making matrix elements conditional. Thanks [lewis](https://stackoverflow.com/users/6814658/lewis) 😁.
