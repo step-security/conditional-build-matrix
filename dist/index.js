@@ -40142,6 +40142,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(7484);
 const jmes = __nccwpck_require__(5217)
 const fs = __nccwpck_require__(9896)
+const path = __nccwpck_require__(6928)
 const axios = __nccwpck_require__(7269)
 
 async function validateSubscription() {
@@ -40187,7 +40188,15 @@ async function run() {
     const filterString = core.getInput('filter');
     const addInclude = (core.getInput('addInclude') || 'true').toUpperCase() === 'TRUE';
 
-    const inputFile = fs.readFileSync(inputFilePath);
+    const workspaceDir = process.env.GITHUB_WORKSPACE || process.cwd();
+    const resolvedPath = path.resolve(inputFilePath);
+    const resolvedWorkspace = path.resolve(workspaceDir);
+
+    if (!resolvedPath.startsWith(resolvedWorkspace + path.sep) && resolvedPath !== resolvedWorkspace) {
+      core.warning(`File path is outside the workspace directory: ${inputFilePath}`);
+    }
+
+    const inputFile = fs.readFileSync(resolvedPath);
 
     const inputJson = JSON.parse(inputFile);
 

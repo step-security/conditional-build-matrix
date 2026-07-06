@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const jmes = require('jmespath')
 const fs = require('fs')
+const path = require('path')
 const axios = require('axios')
 
 async function validateSubscription() {
@@ -46,7 +47,15 @@ async function run() {
     const filterString = core.getInput('filter');
     const addInclude = (core.getInput('addInclude') || 'true').toUpperCase() === 'TRUE';
 
-    const inputFile = fs.readFileSync(inputFilePath);
+    const workspaceDir = process.env.GITHUB_WORKSPACE || process.cwd();
+    const resolvedPath = path.resolve(inputFilePath);
+    const resolvedWorkspace = path.resolve(workspaceDir);
+
+    if (!resolvedPath.startsWith(resolvedWorkspace + path.sep) && resolvedPath !== resolvedWorkspace) {
+      core.warning(`File path is outside the workspace directory: ${inputFilePath}`);
+    }
+
+    const inputFile = fs.readFileSync(resolvedPath);
 
     const inputJson = JSON.parse(inputFile);
 
