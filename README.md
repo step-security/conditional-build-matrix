@@ -2,8 +2,6 @@
 
 # Conditional Build Matrix
 
-![GitHub](https://img.shields.io/github/license/step-security/conditional-build-matrix)
-
 Enables easier *conditional* matrix builds!
 
 ---
@@ -20,7 +18,6 @@ Enables easier *conditional* matrix builds!
   * [JSON File Placement](#JSON-File-Placement)
 * [Troubleshooting](#Troubleshooting)
 * [Use Case](#Use-Case)
-* [Inspired By](#Inspired-By)
 
 ## Usage
 
