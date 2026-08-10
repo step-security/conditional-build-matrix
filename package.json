@@ -19,7 +19,7 @@
   "homepage": "https://github.com/step-security/conditional-build-matrix#readme",
   "dependencies": {
     "@actions/core": "^2.0.0",
-    "axios": "^1.18.0",
+    "axios": "^1.19.0",
     "jmespath": "^0.16.0"
   },
   "devDependencies": {
